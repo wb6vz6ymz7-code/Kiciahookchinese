@@ -16990,7 +16990,7 @@ return bd.c
 end
 end
 do 
-local function fn35()local I= tbl17 .i().atomic; tbl17 .aZ();local W,N,P= tbl17 .aU(), tbl17 .aW(), tbl17 .aY();return{Aimbot=W.buildConfig(),SilentAim=N.buildConfig(),Triggerbot=P.buildConfig(),Ragebot={Enabled=false,Keybind={State=false,Kind="Always",Bind=nil,ShowInList=true,Invisible=false},Stability=0.15,ShootFrames=1,PrioritizeHackers=false,Weapons={Priority=I({"Primary","Secondary","Melee"}),Enabled={Primary=true,Secondary=true,Melee=true},OnEmpty="SwapOrReload"},Evasion={Mode="Random",Random={AnchorFromCharacter=false,BaseRadius=100,RadiusRandomFactor=0.5},ProjectileBreaker={DepthForward={Min=0,Max=4},DepthForwardFrequency=5,DepthUp={Min=0,Max=5.5},DepthUpFrequency=5,RepositionInterval=0.3,FallbackAnchorFromCharacter=false,FallbackBaseRadius=100,FallbackRadiusRandomFactor=0.5},Translocate={Offset=-5}},UtilizeHealthLead=false},Flickbot={Enabled=false,Keybind={State=false,Kind="Hold",Bind=nil,ShowInList=true,Invisible=false},Shoot=false,ShotDelay=0,Cooldown=250,FlickDuration=110,Curvature=12,Humanness=30}};end
+local function fn35()local I= tbl17 .i().atomic; tbl17 .aZ();local W,N,P= tbl17 .aU(), tbl17 .aW(), tbl17 .aY();return{Aimbot=W.buildConfig(),SilentAim=N.buildConfig(),Triggerbot=P.buildConfig(),Ragebot={Enabled=false,Keybind={State=false,Kind="Always",Bind=nil,ShowInList=true,Invisible=false},Stability=0.15,ShootFrames=1,PrioritizeHackers=false,Weapons={Priority=I({"Primary","Secondary","Melee"}),Enabled={Primary=true,Secondary=true,Melee=true},OnEmpty="SwapOrReload"},Evasion={Mode="ProjectileBreaker",Random={AnchorFromCharacter=false,BaseRadius=120,RadiusRandomFactor=0.5},ProjectileBreaker={DepthForward={Min=0,Max=6},DepthForwardFrequency=5,DepthUp={Min=0,Max=7},DepthUpFrequency=5,RepositionInterval=0.18,FallbackAnchorFromCharacter=false,FallbackBaseRadius=120,FallbackRadiusRandomFactor=0.5},Translocate={Offset=-5}},UtilizeHealthLead=false},Flickbot={Enabled=false,Keybind={State=false,Kind="Hold",Bind=nil,ShowInList=true,Invisible=false},Shoot=false,ShotDelay=0,Cooldown=250,FlickDuration=110,Curvature=12,Humanness=30}};end
 tbl17.be = function()
 local be = tbl17.cache.be
 if not be then
@@ -17082,7 +17082,7 @@ return bl.c
 end
 end
 do 
-local function fn35() tbl17 .ba();return{XiaoYu={ClickTp=false,TpButton=false,TpName="",WallClimb=false,ClimbSpeed=32,InfJump=false,AvatarEsp=false,AvatarSize=40,AvatarTeam=false,Minimap=false,MiniSize=180,MiniRange=220,MiniTeam=false,Fullbright=false,FpsBoost=false,FpsHud=false,AimAlert=false,AlertAngle=10,AlertDist=150,LowHp=false,LowHpPct=30,DarkMat=false,WhiteMat=false,MusicId="",MusicVol=0.5,MusicLoop=true,AntiAfk=false,SupplyHeal=false,SupplyAmmo=false,SupplyRespawn=false,BigHead=false,Invisible=false,SpamMsg="",SpamChat=false,Rage=false,RageMode="1",NoRecoil=false,Xray=false,XrayTrans=0.5,XrayTeam=false,AntiAim=false,AntiAimSpeed=50,UnderDepth=18,FloatBtn=false,Rgb=false,JoinLeave=false,AutoRejoin=false,StatsHud=false,BodySpin=false,BodySpinSpeed=50}};end
+local function fn35() tbl17 .ba();return{XiaoYu={ClickTp=false,TpButton=false,TpName="",WallClimb=false,ClimbSpeed=32,InfJump=false,AvatarEsp=false,AvatarSize=40,AvatarTeam=false,Minimap=false,MiniSize=180,MiniRange=220,MiniTeam=false,Fullbright=false,FpsBoost=false,FpsHud=false,AimAlert=false,AlertAngle=10,AlertDist=150,LowHp=false,LowHpPct=30,DarkMat=false,WhiteMat=false,MusicId="",MusicVol=0.5,MusicLoop=true,AntiAfk=false,SupplyHeal=false,SupplyAmmo=false,SupplyRespawn=false,BigHead=false,Invisible=false,SpamMsg="",SpamChat=false,VoidHide=false,RageAttackTime=0.05,RageVoidTime=0.55,NoRecoil=false,Xray=false,XrayTrans=0.5,XrayTeam=false,AntiAim=false,AntiAimSpeed=50,UnderDepth=18,FloatBtn=false,Rgb=false,JoinLeave=false,AutoRejoin=false,StatsHud=false,BodySpin=false,BodySpinSpeed=50}};end
 tbl17.xyCfg = function()
 local xycfg = tbl17.cache.xyCfg
 if not xycfg then
@@ -57165,7 +57165,12 @@ end
 K.onUnload(XY.Cleanup)
 local XYPlayers = game:GetService("Players")
 local XYRunService = game:GetService("RunService")
-XY.rage = XY.rage or { on = false, mode = "1", skyCF = nil, homeCF = nil, target = nil, shooting = false, oldRay = nil, conns = {} }
+XY.rage = XY.rage or {
+	on = false, mode = "1",
+	skyCF = nil, homeCF = nil, target = nil, shooting = false, oldRay = nil, conns = {},
+	attackTime = 0.15, voidTime = 0.35,
+	phase = "void", phaseUntil = 0,
+}
 XY.xray = XY.xray or { on = false, trans = 0.5, showTeam = false }
 XY.supply = XY.supply or { heal = false, ammo = false, respawn = false }
 XY.fun = XY.fun or { bighead = false, headSize = nil, invis = false, saved = nil }
@@ -57249,67 +57254,14 @@ XY.rage.homeCF = nil
 end
 end
 function XY.SetRage(on)
-if not on then
-XY.RageStop(true)
-return
-end
-XY.RageStop(false)
-XY.rage.on = true
-local uis = game:GetService("UserInputService")
-local lp = XYPlayers.LocalPlayer
-if XY.rage.mode ~= "3" then
-local char = lp.Character
-local hrp = char and char:FindFirstChild("HumanoidRootPart")
-if hrp then
-if XY.rage.skyCF == nil then
-XY.rage.homeCF = hrp.CFrame
-XY.rage.skyCF = CFrame.new(hrp.Position + Vector3.new(10000, 3000, 10000))
-end
-if XY.rage.mode == "1" then
-pcall(function() hrp.CFrame = XY.rage.skyCF end)
-end
-end
-end
-XY.rage.conns.beat = XYRunService.Heartbeat:Connect(function()
-if not XY.rage.on then return end
-local myChar = lp.Character
-if not myChar then return end
-local myHrp = myChar:FindFirstChild("HumanoidRootPart")
-if not myHrp then return end
-local cam = workspace.CurrentCamera
-if not cam then return end
-if XY.rage.mode == "1" and XY.rage.skyCF and not XY.rage.shooting then
-pcall(function() myHrp.CFrame = XY.rage.skyCF end)
-end
-XY.rage.target = XYRageNearest()
-if XY.rage.shooting and XY.rage.target then
-local hp = XYRageHitPart(XY.rage.target.Character)
-if hp then
-if XY.rage.mode == "1" or XY.rage.mode == "2" then
-pcall(function()
-myHrp.CFrame = CFrame.new(hp.Position + Vector3.new(0, 2, 0))
-end)
-end
-pcall(function()
-cam.CFrame = CFrame.new(cam.CFrame.Position, hp.Position)
-end)
-end
-end
-end)
-XY.rage.conns.down = uis.InputBegan:Connect(function(i, gp)
-if gp then return end
-local t = i.UserInputType
-if t == Enum.UserInputType.MouseButton1 or t == Enum.UserInputType.Touch then
-if XY.rage.on and XY.rage.target then XY.rage.shooting = true end
-end
-end)
-XY.rage.conns.up = uis.InputEnded:Connect(function(i)
-local t = i.UserInputType
-if t == Enum.UserInputType.MouseButton1 or t == Enum.UserInputType.Touch then
+-- XiaoYu FFA ragebot removed; use stock Ragebot + void module
+if XY and XY.rage then
+XY.rage.on = false
 XY.rage.shooting = false
 end
-end)
-XYRageHookRay()
+if on then
+warn("[Guochan Tech] 小魚狂暴機器人已移除，請開原版 Ragebot +「虛空躲藏」")
+end
 end
 function XY.RageReturnHome()
 local lp = XYPlayers.LocalPlayer
@@ -57938,7 +57890,6 @@ return {
 { label = "頭像顯示", path = "AvatarEsp", get = function() return XY.av.on end, set = function(v) XY.SetAvatarEsp(v) end },
 { label = "XRay 透視", path = "Xray", get = function() return XY.xray.on end, set = function(v) XY.SetXray(v) end },
 { label = "無後坐力", path = "NoRecoil", get = function() return XY.recoil.norecoil end, set = function(v) XY.SetNoRecoil(v) end },
-{ label = "狂暴機器人", path = "Rage", get = function() return XY.rage.on end, set = function(v) XY.SetRage(v) end },
 { label = "反瞄準旋轉", path = "AntiAim", get = function() return XY.antiaim.on end, set = function(v) XY.SetAntiAim(v) end },
 { label = "自動撿血包", path = "SupplyHeal", get = function() return XY.supply.heal end, set = function(v) XY.supply.heal = v; XY.SetSupply() end },
 { label = "自動撿彈藥", path = "SupplyAmmo", get = function() return XY.supply.ammo end, set = function(v) XY.supply.ammo = v; XY.SetSupply() end },
@@ -58801,51 +58752,46 @@ Min = 10, Max = 100, Step = 5, Default = 50,
 OnChanged = function(v) XY.AntiAimSpeed(v) end,
 }, { "AntiAimSpeed" }, function(v) XY.AntiAimSpeed(v) end)
 end
-local xyrgSec = sec("狂暴模式", "XiaoYu 狂暴機器人", "left")
+local xyrgSec = sec("狂暴模式", "虛空躲藏（原版 Ragebot）", "left")
 if xyrgSec then
+xyrgSec:AddLabel({ Label = "需同時開啟原版「狂暴模式 / Ragebot」。攻擊秒數＝貼地開火，虛空秒數＝藏進虛空。" })
 XYBind("Toggle", xyrgSec, {
-Label = "狂暴機器人（FFA）",
+Label = "虛空躲藏",
 Default = false,
-OnChanged = function(on) XY.SetRage(on) end,
-}, { "Rage" }, function(on) XY.SetRage(on) end)
-XYBind("Dropdown", xyrgSec, {
-Label = "狂暴模式",
-Options = { "1", "2", "3" },
-Default = "1",
-OnChanged = function(v)
-local m = tostring(v or "1")
-local wasOn = XY.rage.on
-if wasOn then XY.RageStop() end
-XY.rage.mode = m
-if wasOn then
-XY.SetRage(true)
-XYNotify("狂暴模式切換：" .. m)
-end
+OnChanged = function(on)
+getgenv().GuochanVoidHide = on == true
+if XY then XY.voidHide = XY.voidHide or {} ; XY.voidHide.on = on == true end
 end,
-}, { "RageMode" }, function(v)
-local m = tostring(v or "1")
-local wasOn = XY.rage.on
-if wasOn then XY.RageStop() end
-XY.rage.mode = m
-if wasOn then
-XY.SetRage(true)
-XYNotify("狂暴模式切換：" .. m)
-end
+}, { "VoidHide" }, function(on)
+getgenv().GuochanVoidHide = on == true
+if XY then XY.voidHide = XY.voidHide or {} ; XY.voidHide.on = on == true end
 end)
-xyrgSec:AddButton({
-Label = "返回開啟前位置",
-OnClick = function() XY.RageReturnHome() end,
-})
-XYBind("Toggle", xyrgSec, {
-Label = "身體分離旋轉",
-Default = false,
-OnChanged = function(on) XY.SetBodySpin(on) end,
-}, { "BodySpin" }, function(on) XY.SetBodySpin(on) end)
 XYBind("Slider", xyrgSec, {
-Label = "旋轉速度",
-Min = 1, Max = 100, Step = 1, Default = 50,
-OnChanged = function(v) XY.BodySpinSpeed(v) end,
-}, { "BodySpinSpeed" }, function(v) XY.BodySpinSpeed(v) end)
+Label = "攻擊時間（秒）",
+Min = 0.01, Max = 2, Step = 0.01, Default = 0.05,
+OnChanged = function(v)
+local n = math.max(0.01, tonumber(v) or 0.05)
+getgenv().GuochanAttackTime = n
+if XY then XY.voidHide = XY.voidHide or {} ; XY.voidHide.attackTime = n end
+end,
+}, { "RageAttackTime" }, function(v)
+local n = math.max(0.01, tonumber(v) or 0.05)
+getgenv().GuochanAttackTime = n
+if XY then XY.voidHide = XY.voidHide or {} ; XY.voidHide.attackTime = n end
+end)
+XYBind("Slider", xyrgSec, {
+Label = "躲虛空時間（秒）",
+Min = 0.01, Max = 3, Step = 0.01, Default = 0.55,
+OnChanged = function(v)
+local n = math.max(0.01, tonumber(v) or 0.55)
+getgenv().GuochanVoidTime = n
+if XY then XY.voidHide = XY.voidHide or {} ; XY.voidHide.voidTime = n end
+end,
+}, { "RageVoidTime" }, function(v)
+local n = math.max(0.01, tonumber(v) or 0.55)
+getgenv().GuochanVoidTime = n
+if XY then XY.voidHide = XY.voidHide or {} ; XY.voidHide.voidTime = n end
+end)
 end
 local xyrcSec = sec("武器操作", "XiaoYu 射控", "left")
 if xyrcSec then
@@ -59003,46 +58949,221 @@ queue()
 end
 end)
 end)
-pcall(function() print("[Guochan Tech] 載入完畢") end)
 
--- [XY] melee CD gate (minimal)
+
+--==========================================================================
+--  [Guochan Tech] Void hide for STOCK Ragebot
+--  Enable original Ragebot + toggle 虛空躲藏.
+--  Cycle: attackTime on ground (rage fires) <-> voidTime in sky.
+--==========================================================================
 pcall(function()
 	local Players = game:GetService("Players")
 	local RunService = game:GetService("RunService")
 	local lp = Players.LocalPlayer
-	local lastPush = 0
-	local function enemyMeleeReady(plr)
+
+	getgenv().GuochanVoidHide = getgenv().GuochanVoidHide == true
+	getgenv().GuochanAttackTime = math.max(0.01, tonumber(getgenv().GuochanAttackTime) or 0.05)
+	getgenv().GuochanVoidTime = math.max(0.01, tonumber(getgenv().GuochanVoidTime) or 0.55)
+
+	local phase = "attack"
+	local phaseUntil = 0
+	local skyCF, homeCF = nil, nil
+
+	local function storeGet(path)
+		local ok, store = pcall(function()
+			if type(tbl17) == "table" and type(tbl17.bG) == "function" then
+				return tbl17.bG()
+			end
+		end)
+		if not ok or type(store) ~= "table" or type(store.Get) ~= "function" then
+			return nil
+		end
+		local ok2, v = pcall(function() return store:Get(path) end)
+		if ok2 then return v end
+		return nil
+	end
+
+	local function stockRageOn()
+		local en = storeGet({ "Ragebot", "Enabled" })
+		if en == true then return true end
+		-- keybind state sometimes separate
+		local kb = storeGet({ "Ragebot", "Keybind", "State" })
+		if kb == true then return true end
+		return false
+	end
+
+	local conn
+	conn = RunService.Heartbeat:Connect(function()
+		if not getgenv().GuochanVoidHide then
+			skyCF, homeCF = nil, nil
+			return
+		end
+		if not stockRageOn() then
+			-- rage off: return home once
+			if homeCF then
+				local hrp = lp.Character and lp.Character:FindFirstChild("HumanoidRootPart")
+				if hrp then pcall(function() hrp.CFrame = homeCF + Vector3.new(0, 3, 0) end) end
+				homeCF, skyCF = nil, nil
+			end
+			return
+		end
+
+		local char = lp.Character
+		local hrp = char and char:FindFirstChild("HumanoidRootPart")
+		if not hrp then return end
+
+		local atk = math.max(0.01, tonumber(getgenv().GuochanAttackTime) or 0.05)
+		local vd = math.max(0.01, tonumber(getgenv().GuochanVoidTime) or 0.55)
+		local now = os.clock()
+
+		if homeCF == nil then
+			homeCF = hrp.CFrame
+			skyCF = CFrame.new(hrp.Position + Vector3.new(12000, 4000, 12000))
+			phase = "void"
+			phaseUntil = now + vd
+		end
+
+		-- melee hard-threat forces void
+		local forceUntil = tonumber(getgenv().GuochanForceVoidUntil) or 0
+		if forceUntil > now then
+			phase = "void"
+			phaseUntil = math.max(phaseUntil, forceUntil)
+		end
+
+		if now >= phaseUntil then
+			if phase == "attack" then
+				phase = "void"
+				phaseUntil = now + vd
+			else
+				phase = "attack"
+				phaseUntil = now + atk
+			end
+		end
+
+		if phase == "void" and skyCF then
+			pcall(function() hrp.CFrame = skyCF end)
+		end
+		-- attack phase: stock ragebot shoots on ground
+	end)
+
+	if K and K.track then pcall(function() K.track(conn) end) end
+	print("[Guochan Tech] stock Ragebot void-hide module online")
+end)
+
+pcall(function() print("[Guochan Tech] 載入完畢") end)
+
+-- [Guochan Tech] anti-melee HARD
+pcall(function()
+	local Players = game:GetService("Players")
+	local RunService = game:GetService("RunService")
+	local lp = Players.LocalPlayer
+	local CFG = {
+		Range = 28,
+		HardRange = 14,
+		Push = 24,
+		HardPush = 32,
+		Lift = 8,
+		Cooldown = 0.05,
+		Hold = 0.55,
+		MinSep = 20,
+	}
+	local lastPush, holdUntil, lastAway, lastThreat = 0, 0, nil, nil
+	local MELEE_NAMES = {
+		Knife = true, Katana = true, Fists = true, Dagger = true,
+		Sword = true, Melee = true, Bat = true, Axe = true,
+	}
+	local function hasMelee(plr)
 		local char = plr.Character
 		if not char then return false end
 		for _, inst in ipairs(char:GetChildren()) do
 			local n = inst.Name
-			if n == "Knife" or n == "Katana" or n == "Fists" then
+			if MELEE_NAMES[n] then return true end
+			local low = string.lower(n)
+			if low:find("knife") or low:find("katana") or low:find("melee") or low:find("sword") then
+				return true
+			end
+			if inst:IsA("Tool") and (low:find("knife") or low:find("katana") or low:find("melee")) then
+				return true
+			end
+		end
+		local eq = char:GetAttribute("EquippedItem") or char:GetAttribute("Weapon")
+		if type(eq) == "string" then
+			local l = string.lower(eq)
+			if l:find("knife") or l:find("katana") or l:find("melee") or l:find("fist") then
 				return true
 			end
 		end
 		return false
 	end
+	local function isEnemy(plr)
+		if plr == lp then return false end
+		if type(XYIsEnemy) == "function" then
+			local ok, r = pcall(XYIsEnemy, plr)
+			if ok then return r end
+		end
+		local a, b = lp:GetAttribute("TeamID"), plr:GetAttribute("TeamID")
+		if a ~= nil and b ~= nil then return a ~= b end
+		return true
+	end
+	local function pushAway(my, threat, hard)
+		local delta = my.Position - threat.Position
+		if delta.Magnitude < 0.15 then
+			delta = Vector3.new(math.random() - 0.5, 0, math.random() - 0.5)
+		end
+		local away = delta.Unit
+		-- lateral jitter so swing prediction fails
+		local right = Vector3.new(-away.Z, 0, away.X)
+		if right.Magnitude > 0.01 then right = right.Unit else right = Vector3.new(1, 0, 0) end
+		local side = right * ((math.random() < 0.5) and -6 or 6)
+		local dist = hard and CFG.HardPush or CFG.Push
+		local lift = hard and (CFG.Lift + 4) or CFG.Lift
+		pcall(function()
+			my.CFrame = CFrame.new(my.Position + away * dist + side + Vector3.new(0, lift, 0))
+		end)
+		lastAway = away
+		return away
+	end
 	RunService.Heartbeat:Connect(function()
 		local my = lp.Character and lp.Character:FindFirstChild("HumanoidRootPart")
 		if not my then return end
 		local now = os.clock()
-		if now - lastPush < 0.12 then return end
+		-- sustain separation during hold window
+		if now < holdUntil and lastThreat and lastThreat.Parent and lastAway then
+			local d = (my.Position - lastThreat.Position).Magnitude
+			if d < CFG.MinSep then
+				pushAway(my, lastThreat, true)
+			elseif lastAway then
+				pcall(function()
+					my.CFrame = CFrame.new(my.Position + lastAway * 4 + Vector3.new(0, 2, 0))
+				end)
+			end
+		end
+		if now - lastPush < CFG.Cooldown then return end
+		local best, bestD, hard = nil, CFG.Range, false
 		for _, plr in ipairs(Players:GetPlayers()) do
-			if plr ~= lp and enemyMeleeReady(plr) then
+			if isEnemy(plr) and hasMelee(plr) then
 				local hrp = plr.Character and plr.Character:FindFirstChild("HumanoidRootPart")
-				if hrp then
+				local hum = plr.Character and plr.Character:FindFirstChildOfClass("Humanoid")
+				if hrp and hum and hum.Health > 0 then
 					local d = (hrp.Position - my.Position).Magnitude
-					if d < 18 then
-						local away = (my.Position - hrp.Position)
-						if away.Magnitude < 0.1 then away = Vector3.new(1, 0, 0) else away = away.Unit end
-						my.CFrame = CFrame.new(my.Position + away * 14 + Vector3.new(0, 4, 0))
-						lastPush = now
-						break
+					if d < bestD then
+						bestD, best = d, hrp
+						hard = d < CFG.HardRange
 					end
 				end
 			end
 		end
+		if best then
+			pushAway(my, best, hard)
+			lastPush = now
+			holdUntil = now + CFG.Hold
+			lastThreat = best
+			-- if void-hide is on, bail to void immediately on hard threat
+			if hard and getgenv().GuochanVoidHide then
+				getgenv().GuochanForceVoidUntil = now + math.max(0.25, tonumber(getgenv().GuochanVoidTime) or 0.55)
+			end
+		end
 	end)
-	print("[Guochan Tech] melee gate online")
+	print("[Guochan Tech] anti-melee HARD online range=", CFG.Range, " push=", CFG.Push)
 end)
 
